@@ -1,0 +1,7 @@
+fastapi[all]
+
+google-api-python-client
+protobuf
+pydantic
+requests
+firebase-admin
