@@ -14,7 +14,7 @@ from fcmNotificationSender import FCMAsyncSender
 from sheetsRepository import SheetsRepository
 from changesDetector import ChangesDetector
 
-from firebase_admin import credentials
+from firebase_admin import credentials, initialize_app
 
 # Finish imports
 
