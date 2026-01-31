@@ -9,6 +9,7 @@ import logging
 
 import json
 from fastapi import FastAPI, status, Response, BackgroundTasks
+from fastapi.middleware.cors import CORSMiddleware
 
 from fcmNotificationSender import FCMAsyncSender
 from sheetsRepository import SheetsRepository
@@ -56,6 +57,12 @@ logger.info(f"[main] Service is up and running")
 # Start App
 app = FastAPI()
 
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 # Initialize FCAsync Sender on startup
 
