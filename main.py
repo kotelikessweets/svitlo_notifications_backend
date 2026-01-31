@@ -32,15 +32,6 @@ logger.info(f"[main] Service started at {start_time}")
 
 # Connect to storage (Google sheet)
 logger.info(f"[main] Connecting to google storage")
-if os.getenv("GDRIVE_SERVICE_ACCOUNT"):
-    # From envs
-    service_account_info = json.loads(
-        os.getenv("FIREBASE_SERVICE_ACCOUNT")
-    )
-    cred = credentials.Certificate(service_account_info)
-else:
-    # Test from file
-    cred = credentials.Certificate("service_account.json")
 
 data_handler = SheetsRepository(
     spreadsheet_id_env_key="GOOGLE_SHEETS_SPREADSHEET_ID",
