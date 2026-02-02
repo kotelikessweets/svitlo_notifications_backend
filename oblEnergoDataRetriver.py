@@ -39,7 +39,6 @@ class OblEnergoDataRetriever:
             self,
             queue_list:  List[Dict[str, str]]
     ) -> List[Dict[str, str]]:
-        logger.info("Start getting data")
 
         logger.info("Start getting data")
 
@@ -76,21 +75,13 @@ class OblEnergoDataRetriever:
                 logger.info(f"End request for account: {account}. Response: {response} \n Data: {data}")
 
             except requests.RequestException as exc:
-                logger.error(
-                    "Request failed",
-                    extra={
-                        "account": account,
-                        "error": str(exc),
-                    },
-                )
-
+                logger.error(f"Request failed for account: {account}. Error: {str(exc)}")
+            '''
                 results.append({
                     **record,
                     "error": str(exc),
                 })
-
+            '''
             time.sleep(1 + round(random.random(), 3))
 
         return results
-
-        return []
