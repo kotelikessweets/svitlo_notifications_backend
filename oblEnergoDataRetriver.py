@@ -3,10 +3,12 @@ from typing import List, Dict, Optional, Tuple
 import logging
 import requests
 import certifi
+import ssl
 import time
 import random
 
 logger = logging.getLogger(__name__)
+
 
 class OblEnergoDataRetriever:
 
@@ -42,6 +44,9 @@ class OblEnergoDataRetriever:
     ) -> List[Dict[str, str]]:
 
         logger.info("Start getting data")
+        logger.info(f"OpenSSL: {ssl.OPENSSL_VERSION}")
+        logger.info(f"Default verify paths: {ssl.get_default_verify_paths()}")
+        logger.info(f"Certifi: {certifi.where()}")
 
         results: List[Dict[str, str]] = []
 
