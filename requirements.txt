@@ -5,3 +5,4 @@ protobuf
 pydantic
 requests
 firebase-admin
+certifi>=2024.2.2

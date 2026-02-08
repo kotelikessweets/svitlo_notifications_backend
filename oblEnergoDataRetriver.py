@@ -2,6 +2,7 @@ from typing import List, Dict, Optional, Tuple
 
 import logging
 import requests
+import certifi
 import time
 import random
 
@@ -61,6 +62,7 @@ class OblEnergoDataRetriever:
                     json=payload,
                     headers=self.HEADERS,
                     timeout=10,
+                    verify=certifi.where()
                 )
 
                 response.raise_for_status()
