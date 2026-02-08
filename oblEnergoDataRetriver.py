@@ -17,7 +17,6 @@ class OblEnergoDataRetriever:
     HEADERS = {
         "Content-Type": "application/json",
         "Accept": "*/*",
-        "Accept-Encoding": "gzip, deflate, br, zstd",
         "Accept-Language": "uk",
         "Cache-Control": "no-cache",
         "Connection": "keep-alive",
