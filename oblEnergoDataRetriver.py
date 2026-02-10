@@ -4,8 +4,10 @@ import logging
 import requests
 import certifi
 import ssl
+import urllib3
 import time
 import random
+from requests.exceptions import SSLError
 
 logger = logging.getLogger(__name__)
 
@@ -57,7 +59,6 @@ class OblEnergoDataRetriever:
                 continue
 
             payload = {"person_accnt": account}
-
             logger.info(f"Start request for account: {account}")
 
             try:
@@ -79,6 +80,32 @@ class OblEnergoDataRetriever:
                 })
 
                 logger.info(f"End request for account: {account}. Response: {response} \n Data: {data}")
+
+            except SSLError as ssl_exc:
+                try:
+                    logger.warning(f"SSL error: {ssl_exc}")
+                    logger.warning("Retrying with verify=False")
+                    response = requests.post(
+                        self.URL,
+                        json=payload,
+                        headers=self.HEADERS,
+                        timeout=10,
+                        verify=False
+                    )
+
+                    response.raise_for_status()
+
+                    data = response.json()
+
+                    results.append({
+                        **record,
+                        "oblenergo_response": data,
+                    })
+
+                    logger.info(f"End ssl-fallback request for account: {account}. Response: {response} \n Data: {data}")
+
+                except requests.RequestException as exc:
+                    logger.error(f"SSL-fallback noverify request failed for account: {account}. Error: {str(exc)}")
 
             except requests.RequestException as exc:
                 logger.error(f"Request failed for account: {account}. Error: {str(exc)}")
